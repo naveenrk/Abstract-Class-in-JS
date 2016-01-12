@@ -1,0 +1,44 @@
+<html>
+
+<body>
+
+<h2>Abstract Class in JavaScript</h2>
+	<script>
+	    function Furniture() {
+			if (this.constructor === Furniture) {
+			  throw new Error("Can't instantiate abstract class!");
+			}
+		};
+
+		Furniture.prototype.say = function() {
+			throw new Error("Abstract method!");
+		}
+
+		function Table() {
+			Furniture.apply(this, arguments);
+		};
+		Table.prototype = Object.create(Furniture.prototype);
+		Table.prototype.constructor = Table;
+
+		Table.prototype.say = function() {
+			console.log('meow');
+		}
+
+		function Chair() {
+			Furniture.apply(this, arguments);
+		};
+		Chair.prototype = Object.create(Furniture.prototype);
+		Chair.prototype.constructor = Chair;
+
+		Chair.prototype.say = function() {
+			console.log('bark');
+		}
+
+		var Table = new Table();
+		var Chair = new Chair();
+
+		Table.say();
+		Chair.say();
+	</script>
+</body>
+</html>
